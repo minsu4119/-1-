@@ -1,47 +1,1208 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>전시회 준비중</title>
+  <!-- Google Analytics 4: 방문 통계 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LX0JTEDE5R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-LX0JTEDE5R');
+  </script>
 
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>The Way We See | 제1회 청소년 어반스케치 전시회</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet">
+  
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    :root {
+      --bg-color: #121212;
+      --card-bg: #1c1c1e;
+      --text-color: #f1f1f1;
+      --text-muted: #a1a1a6;
+      --accent-color: #e5a93c;
+      --font-serif: 'Noto Serif KR', serif;
+      --font-sans: 'Noto Sans KR', sans-serif;
     }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     html, body {
       width: 100%;
-      height: 100%;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: var(--font-sans);
+      -webkit-text-size-adjust: 100%;
     }
 
-    body {
+    /* 모바일 네비게이션 */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 12px 16px;
       display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      background: rgba(18, 18, 18, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    nav .logo {
+      font-family: var(--font-serif);
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+      color: var(--accent-color);
+      white-space: nowrap;
+    }
+
+    /* 모바일 메뉴 가로 스크롤 */
+    nav .menu-scroll {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-left: 10px;
+    }
+    nav .menu-scroll::-webkit-scrollbar { display: none; }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.78rem;
+      transition: color 0.3s;
+    }
+    nav a:hover, nav a:active { color: var(--accent-color); }
+
+    .btn-center-site {
+      border: 1px solid var(--accent-color);
+      color: var(--accent-color) !important;
+      padding: 4px 10px;
+      border-radius: 15px;
+      font-size: 0.75rem;
+      white-space: nowrap;
+    }
+
+    /* 애니메이션 공통 */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    section {
+      width: 100%;
+      padding: 80px 16px 50px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .section-tag {
+      font-family: var(--font-serif);
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      color: var(--accent-color);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 400;
+      margin-bottom: 24px;
+      word-break: keep-all;
+    }
+
+    /* 1. 메인 시작 화면 (모바일 맞춤) */
+    #hero {
+      min-height: 100vh;
+      padding: 90px 16px 40px 16px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: #faf7f2;
-      color: #2f2f2f;
-      font-family: "Noto Sans KR", Arial, sans-serif;
+      background: radial-gradient(circle at center, #1e1e24 0%, #0d0d0e 80%);
       text-align: center;
     }
 
-    .message {
-      font-size: 1.6rem;
-      font-weight: 600;
-      letter-spacing: -0.02em;
+    .hero-bg-glow {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(229, 169, 60, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      animation: pulseGlow 5s infinite alternate ease-in-out;
     }
+
+    @keyframes pulseGlow {
+      0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.5; }
+      100% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.9; }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-logos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .hero-logos span {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 4px 8px;
+      border-radius: 12px;
+      white-space: nowrap;
+    }
+
+    .hero-badge {
+      font-family: var(--font-serif);
+      color: var(--accent-color);
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+      word-break: keep-all;
+    }
+
+    .hero-main-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.3rem, 10vw, 3.8rem);
+      font-weight: 300;
+      letter-spacing: 1px;
+      line-height: 1.15;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, #ffffff 30%, #e5a93c 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      word-break: keep-all;
+    }
+
+    .hero-sub {
+      font-size: 0.98rem;
+      color: #cccccc;
+      margin-bottom: 28px;
+      font-weight: 300;
+      word-break: keep-all;
+      line-height: 1.5;
+    }
+
+    .hero-date-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      background: rgba(28, 28, 30, 0.85);
+      border: 1px solid var(--accent-color);
+      padding: 10px 18px;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .hero-date-box .label {
+      font-size: 0.7rem;
+      color: var(--accent-color);
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+
+    .hero-date-box .date {
+      font-size: 0.85rem;
+      color: #ffffff;
+      font-weight: 400;
+    }
+
+    .scroll-indicator {
+      margin-top: 30px;
+      text-align: center;
+      color: var(--accent-color);
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-8px); }
+      60% { transform: translateY(-4px); }
+    }
+
+    /* 2. 전시 서문 */
+    #preface { padding-top: 60px; }
+
+    .preface-content {
+      font-family: var(--font-serif);
+      font-size: 0.95rem;
+      line-height: 2.0;
+      color: #d1d1d1;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+      background: var(--card-bg);
+      padding: 24px 18px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* 3. 작가 소개 (모바일 2열 그리드) */
+    .artist-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .artist-card {
+      background: var(--card-bg);
+      border-radius: 6px;
+      padding: 10px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .artist-thumb {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1 / 1;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 8px;
+      background: #f7f4ec;
+    }
+
+    .artist-thumb img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      padding: 0;
+    }
+
+    .artist-card h4 {
+      font-family: var(--font-serif);
+      font-size: 0.9rem;
+      color: #fff;
+      margin-bottom: 2px;
+    }
+
+    .artist-card p {
+      font-size: 0.75rem;
+      color: var(--accent-color);
+    }
+
+    /* 4. 전시장 장소 둘러보기 */
+    .location-box {
+      display: flex;
+      flex-direction: column;
+      background: var(--card-bg);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .location-img {
+      width: 100%;
+      height: 200px;
+    }
+
+    .location-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .location-info {
+      padding: 20px 16px;
+    }
+
+    .location-info h3 {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      margin-bottom: 18px;
+      color: var(--accent-color);
+    }
+
+    .info-group { margin-bottom: 14px; }
+    .info-group h4 { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 3px; }
+    .info-group p { font-size: 0.9rem; line-height: 1.5; color: #e1e1e1; word-break: keep-all; }
+
+    /* 5. 전시 작품 보기 (모바일 2열 그리드) */
+    .works-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .work-card {
+      background: var(--card-bg);
+      border-radius: 6px;
+      padding: 10px;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .work-img-wrapper {
+      width: 100%;
+      height: 130px;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 8px;
+      position: relative;
+    }
+
+    .work-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .audio-badge {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: rgba(0,0,0,0.8);
+      color: var(--accent-color);
+      padding: 2px 6px;
+      font-size: 0.65rem;
+      border-radius: 3px;
+    }
+
+    .work-card h4 {
+      font-family: var(--font-serif);
+      font-size: 0.88rem;
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .work-card .artist-name {
+      font-size: 0.75rem;
+      color: var(--accent-color);
+    }
+
+    /* 모바일 팝업 모달 */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.95);
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      padding: 16px;
+    }
+
+    .modal.active { opacity: 1; pointer-events: auto; }
+
+    .modal-content {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-height: 85vh;
+      background: #18181b;
+      border-radius: 8px;
+      overflow-y: auto;
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .modal-media {
+      background: #000;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .modal-media img {
+      width: 100%;
+      max-height: 220px;
+      object-fit: contain;
+    }
+
+    .audio-guide {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .audio-guide-title {
+      font-size: 0.82rem;
+      color: var(--accent-color);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .modal-media audio {
+      width: 100%;
+      height: 42px;
+      display: block;
+    }
+
+
+
+    /* 작품 상세: 모바일 친화형 작가 음성 플레이어 */
+    .voice-player {
+      width: 100%;
+      margin-top: 12px;
+    }
+    .voice-btn {
+      width: 100%;
+      min-height: 48px;
+      border: 0;
+      border-radius: 14px;
+      background: #73b2b3;
+      color: #fff;
+      font-family: var(--font-sans);
+      font-size: .92rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 8px 20px rgba(77, 143, 146, .18);
+    }
+    .voice-btn:active { transform: translateY(1px); }
+    .voice-progress-wrap {
+      display: none;
+      grid-template-columns: 42px 1fr 42px;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+      font-size: .72rem;
+      color: #6d7777;
+    }
+    .voice-progress {
+      width: 100%;
+      accent-color: #73b2b3;
+      cursor: pointer;
+    }
+    .voice-pending {
+      margin-top: 10px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #f3f0e8;
+      color: #7a8383;
+      font-size: .82rem;
+      line-height: 1.55;
+      text-align: center;
+    }
+    .audio-pending {
+      font-size: 0.78rem;
+      color: #aaa;
+      line-height: 1.5;
+    }
+
+    .modal-text { padding: 20px 16px; }
+
+    .modal-text h3 {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      margin-bottom: 6px;
+    }
+
+    .modal-text .meta {
+      font-size: 0.8rem;
+      color: var(--accent-color);
+      margin-bottom: 12px;
+    }
+
+    .modal-text p {
+      line-height: 1.7;
+      color: #b0b0b0;
+      font-size: 0.88rem;
+      word-break: keep-all;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px; right: 14px;
+      font-size: 1.6rem;
+      color: #fff;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    /* 6. 응원 메시지 (모바일 입력 최적화) */
+    .guestbook-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .guestbook-form input, .guestbook-form textarea {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #fff;
+      padding: 12px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+
+    .guestbook-form textarea { height: 70px; resize: none; }
+
+    .guestbook-btn {
+      width: 100%;
+      min-height: 48px;
+      padding: 0 18px;
+      background: var(--accent-color);
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      white-space: nowrap;
+      box-sizing: border-box;
+      -webkit-appearance: none;
+      appearance: none;
+      cursor: pointer;
+    }
+
+    .message-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+
+    .message-item {
+      background: var(--card-bg);
+      padding: 12px 14px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      border-left: 3px solid var(--accent-color);
+      word-break: keep-all;
+    }
+
+    .message-item .writer {
+      font-weight: bold;
+      color: var(--accent-color);
+      margin-bottom: 2px;
+    }
+
+
+    .art-caption { margin-top: 4px; }
+    .art-caption .material { color: #465153; font-size: .9rem; line-height: 1.65; }
+    .art-caption .technique { color: #7a8383; font-size: .8rem; line-height: 1.65; margin-top: 3px; }
+    .guestbook-note { color: #7a8383; font-size: .78rem; line-height: 1.6; margin: -8px 0 14px; }
+    .guestbook-status { display:none; padding: 12px 14px; border-radius: 10px; font-size: .84rem; line-height:1.6; margin-top: 4px; }
+    .guestbook-status.success { display:block; background:#edf7f5; color:#3f7778; border:1px solid #cfe7e3; }
+    .guestbook-status.error { display:block; background:#fff1ef; color:#9a5148; border:1px solid #f1d2cd; }
+    .guestbook-btn[disabled] { opacity:.65; cursor:not-allowed; }
+
+    /* 푸터 */
+    footer {
+      background: #0a0a0a;
+      padding: 30px 16px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      line-height: 1.7;
+      word-break: keep-all;
+    }
+
+    footer a { color: var(--accent-color); text-decoration: none; }
+
+    /* PC 및 태블릿 모니터 대응 (화면이 넓어지면 넓게 확장) */
+    @media (min-width: 768px) {
+      section { padding: 120px 10%; }
+      .hero-main-title { font-size: 4.8rem; }
+      .hero-date-box { flex-direction: row; width: auto; max-width: none; }
+      .artist-grid { grid-template-columns: repeat(3, 1fr); gap: 25px; }
+      .artist-thumb { height: 180px; }
+      .location-box { display: grid; grid-template-columns: 1fr 1fr; }
+      .location-img { height: 100%; }
+      .works-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+      .modal-content { flex-direction: row; max-height: 90vh; }
+      .modal-media { flex: 1.2; }
+      .guestbook-form { flex-direction: row; }
+      .guestbook-form input { width: 180px; }
+      .guestbook-btn { width: auto; }
+    }
+
+
+    /* ===== 밝은 갤러리 테마 (수정본) ===== */
+    :root {
+      --bg-color: #fbfaf6;
+      --card-bg: #ffffff;
+      --text-color: #303638;
+      --text-muted: #727b7d;
+      --accent-color: #6caeb0;
+      --accent-soft: #e8f4f2;
+      --accent-warm: #f6cf67;
+      --line-color: #e7e2d8;
+    }
+
+    html, body { background: var(--bg-color); color: var(--text-color); }
+
+    nav {
+      background: rgba(251, 250, 246, 0.92);
+      border-bottom: 1px solid rgba(80, 95, 96, 0.10);
+      box-shadow: 0 4px 18px rgba(63, 67, 61, 0.04);
+    }
+    nav a { color: #667173; }
+    nav .logo { color: #4d8f92; }
+    .btn-center-site { border-color: #77afb0; color: #4f8f91 !important; background: rgba(255,255,255,.7); }
+
+    #hero {
+      background:
+        radial-gradient(circle at 25% 30%, rgba(199, 229, 226, 0.70), transparent 33%),
+        radial-gradient(circle at 78% 65%, rgba(255, 229, 166, 0.55), transparent 34%),
+        linear-gradient(180deg, #fffefa 0%, #f8f6ef 100%);
+    }
+    .hero-bg-glow {
+      background: radial-gradient(circle, rgba(123, 187, 187, 0.20) 0%, rgba(255,255,255,0) 72%);
+    }
+    .hero-logos span {
+      color: #687274;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(90,115,113,0.12);
+    }
+    .hero-main-title {
+      background: linear-gradient(135deg, #2f3f42 25%, #69a8aa 78%, #d7ad43 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-sub { color: #667173; font-weight: 400; }
+    .hero-date-box {
+      background: rgba(255,255,255,0.82);
+      border: 1px solid rgba(108,174,176,0.55);
+      box-shadow: 0 10px 28px rgba(71, 90, 87, 0.08);
+    }
+    .hero-date-box .date { color: #334043; }
+
+    .preface-content, .artist-card, .location-box, .work-card, .message-item {
+      border-color: var(--line-color);
+      box-shadow: 0 10px 30px rgba(71, 72, 65, 0.055);
+    }
+    .preface-content { color: #4d5658; background: rgba(255,255,255,.84); }
+    .preface-content strong { color: #355f61; font-weight: 700; }
+    .artist-card, .work-card { background: rgba(255,255,255,.92); }
+    .artist-thumb { background: #f7f4ec; }
+    .artist-card h4, .work-card h4 { color: #2f3638; }
+    .artist-card p, .work-card .artist-name, .location-info h3, .modal-text .meta, .message-item .writer { color: #4f9698; }
+
+    .location-box { background: #fff; }
+    .location-img {
+      width: 100%;
+      height: auto;
+      min-height: 0;
+      overflow: hidden;
+      background: transparent;
+    }
+    .location-img img {
+      display: block;
+      width: 100%;
+      height: auto;
+      min-height: 0;
+      object-fit: initial;
+      background: transparent;
+    }
+    .info-group p { color: #4e5759; }
+
+    /* 이미지 비율 자동 최적화: 작가 사진은 원형/정사각형에 맞게, 작품은 전체가 보이도록 */
+    .artist-thumb img { object-fit: cover; object-position: center; }
+    .work-img-wrapper { height: auto; aspect-ratio: 3 / 4; background: #f3f0e8; }
+    .work-img-wrapper img { object-fit: contain; background: #f7f5ef; }
+    .work-placeholder { width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:#8a908f; font-size:.82rem; background:#f3f0e8; }
+
+    .modal { background: rgba(49, 54, 54, 0.72); backdrop-filter: blur(8px); }
+    .modal-content { background: #fffdf9; border-color: #e7e2d8; }
+    .modal-media { background: #f4f1e9; }
+    .modal-text p { color: #5c6466; }
+    .close-btn { color: #374143; }
+
+    .guestbook-form input, .guestbook-form textarea {
+      background: #fff;
+      border-color: #dedbd2;
+      color: #303638;
+    }
+    .guestbook-btn { background: #78b8b8; color: #fff; }
+
+    footer {
+      background: #f2efe7;
+      border-top: 1px solid #e2ddd1;
+      color: #697274;
+    }
+    footer a { color: #4f9092; }
+    footer .visitor-count { margin-top: 10px; font-size: .78rem; color: #5f696b; }
+    footer .visitor-count strong { color: #3f8587; }
 
     @media (min-width: 768px) {
-      .message {
-        font-size: 2rem;
-      }
+      .location-img { min-height: 0; }
+      .location-img img { min-height: 0; width: 100%; height: auto; }
+      .work-img-wrapper { aspect-ratio: 3 / 4; }
     }
+
+  
+    /* 중간 점검 반영: 메인 포스터 */
+    .hero-poster {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      max-height: none;
+      object-fit: contain;
+      margin: 18px 0 42px;
+      border-radius: 0;
+      box-shadow: none;
+      background: transparent;
+    }
+    .instructor-wrap {
+      margin: 42px auto 0;
+      max-width: 360px;
+      text-align: center;
+      padding-top: 28px;
+      border-top: 1px solid rgba(80, 100, 98, .14);
+    }
+    .instructor-wrap h3 { font-size: .92rem; color: #6d7777; font-weight: 500; margin-bottom: 14px; }
+    .instructor-card { display: inline-flex; flex-direction: column; align-items: center; gap: 8px; }
+    .instructor-card img {
+      display: block;
+      width: 126px;
+      height: 126px;
+      object-fit: cover;
+      object-position: center 45%;
+      padding: 0;
+      background: transparent;
+      border-radius: 50%;
+      box-shadow: 0 8px 20px rgba(60,70,70,.12);
+    }
+    .instructor-card strong { font-size: .9rem; color: #394243; }
+    .artist-card.missing-photo .artist-thumb { background: linear-gradient(145deg,#fff9e6,#eef8f5); display:flex; align-items:center; justify-content:center; }
+    .artist-card.missing-photo .artist-thumb::after { content:'사진 준비중'; color:#7a8584; font-size:.72rem; }
+    @media (min-width: 768px) {
+      .hero-poster { width: min(100%, 520px); max-height: none; margin: 18px auto 42px; }
+      .artist-thumb { height: auto; aspect-ratio: 1 / 1; }
+      .instructor-card img { width: 148px; height: 148px; }
+      .location-img { height: 100%; }
+      .location-img img { width: 100%; height: 100%; object-fit: cover; }
+    }
+
+    /* 모바일 QR 관람 최적화 */
+    @media (max-width: 767px) {
+      section { padding-left: 18px; padding-right: 18px; }
+      .section-title { line-height: 1.35; }
+      .hero-poster { width: 100vw; max-width: none; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); margin-bottom: 42px; }
+      .artist-grid { gap: 10px; }
+      .artist-card { padding: 9px; }
+      .artist-thumb { height: auto; aspect-ratio: 1 / 1; background: #f7f4ec; }
+      .artist-card h4 { font-size: .92rem; }
+      .location-img { height: auto; aspect-ratio: auto; }
+      .location-img img { display: block; width: 100%; height: auto; object-fit: initial; background: transparent; }
+      button, nav a { min-height: 44px; display: inline-flex; align-items: center; }
+      .guestbook-btn {
+        width: 100%;
+        min-height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 18px;
+        font-size: 1rem;
+        line-height: 1;
+        text-align: center;
+        white-space: nowrap;
+      }
+      .modal-content { width: calc(100vw - 18px); max-height: 92vh; }
+      .modal-media img { max-height: 52vh; object-fit: contain; }
+    }
+
   </style>
 </head>
-
 <body>
-  <div class="message">전시회 준비중</div>
+
+  <!-- 상단 네비게이션 -->
+  <nav>
+    <div class="logo">The Way We See</div>
+    <div class="menu-scroll">
+      <a href="#hero">HOME</a>
+      <a href="#preface">서문</a>
+      <a href="#artist">작가소개</a>
+      <a href="#location">전시장 소개</a>
+      <a href="#gallery">작품소개</a>
+      <a href="#guestbook">응원</a>
+      <a href="https://happy-you.kr/" target="_blank" class="btn-center-site">센터 ↗</a>
+    </div>
+  </nav>
+
+  <!-- 1. 메인 시작 화면 -->
+  <section id="hero">
+    <div class="hero-bg-glow"></div>
+    <div class="hero-content">
+      <div class="hero-logos">
+        <span>온동네방과후돌봄센터</span>
+        <span>대전광역시교육청</span>
+        <span>대전YMCA</span>
+        <span>유성구청소년수련관</span>
+      </div>
+      
+      <div class="hero-badge">2026년 제1회 청소년 어반스케치 전시회</div>
+      <h1 class="hero-main-title">The Way We See</h1>
+      <p class="hero-sub">우리가 바라본 세상</p>
+      <img class="hero-poster" src="assets/main-poster.jpg" alt="The Way We See 우리가 바라본 세상 메인 전시 포스터">
+      
+      <div class="hero-date-box">
+        <span class="label">EXHIBITION</span>
+        <span class="date">2026. 08. 20 (목) — 09. 20 (일)</span>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      SCROLL DOWN<br>↓
+    </div>
+  </section>
+
+  <!-- 2. 전시 서문 섹션 -->
+  <section id="preface" class="fade-in">
+    <div class="section-tag">EXHIBITION PREFACE</div>
+    <h2 class="section-title">전시 서문</h2>
+    <div class="preface-content">
+      <p>도시는 늘 같은 자리에 있지만, <strong>그것을 바라보는 시선은 모두 다릅니다.</strong></p>
+      <br>
+      <p>이번 전시는 어반 스케치를 통해 자신만의 시선으로 도시를 기록한 첫 번째 전시입니다. 거리의 풍경, 건물의 형태, 빛이 머무는 순간과 지나가는 일상까지, 아이들은 눈앞의 모습을 천천히 관찰하고 한 장의 그림으로 담아냈습니다.</p>
+      <br>
+      <p>어반 스케치는 단순히 풍경을 그리는 일이 아니라, <strong>잠시 걸음을 멈추고 주변을 자세히 바라보는 과정입니다.</strong> 익숙했던 장소도 오래 들여다보면 새로운 모습이 보이고, 같은 풍경도 각자의 손끝에서는 서로 다른 이야기가 됩니다.</p>
+      <br>
+      <p><strong>The Way We See는 정답을 보여주는 전시가 아니라, 아이들이 세상을 바라본 다양한 시선을 담은 기록입니다.</strong> 한 장 한 장의 스케치에는 관찰의 시간과 작은 발견, 그리고 저마다의 감각이 고스란히 담겨 있습니다.</p>
+      <br>
+      <p>처음으로 자신의 작품을 전시하며 설렘을 품은 아이들의 시선을 함께 따라 걸어 주시길 바랍니다. 그리고 그들의 그림 속에서 <strong>여러분만의 새로운 풍경도 발견하시기를 바랍니다.</strong></p>
+    </div>
+  </section>
+
+  <!-- 3. 청소년 작가단 소개 (16명) -->
+  <section id="artist" class="fade-in">
+    <div class="section-tag">YOUNG ARTISTS</div>
+    <h2 class="section-title">청소년 작가단 소개 (16명)</h2>
+    <div class="artist-grid">
+      <div class="artist-card"><div class="artist-thumb"><img src="assets/artist-01.jpg" alt="강민준 작가" loading="lazy"></div><h4>강민준 작가</h4></div>
+      <div class="artist-card"><div class="artist-thumb"><img src="assets/artist-02.jpg" alt="고연우 작가" loading="lazy"></div><h4>고연우 작가</h4></div>
+      <div class="artist-card"><div class="artist-thumb"><img src="assets/artist-03.jpg" alt="김수아 작가" loading="lazy"></div><h4>김수아 작가</h4></div>
+      <div class="artist-card"><div class="artist-thumb"><img src="assets/artist-04.jpg" alt="김온유 작가" loading="lazy"></div><h4>김온유 작가</h4></div>
+      <div class="artist-card"><div class="artist-thumb"><img src="assets/artist-05.jpg" alt="김요안나 작가" loading="lazy"></div><h4>김요안나 작가</h4></div>
+      <div class="artist-card"><div class="artist-thumb"><img src="assets/artist-06.jpg" alt="김채원 작가" loading="lazy"></div><h4>김채원 작가</h4></div>
+      <div class="artist-card"><div class="artist-thumb"><img src="assets/artist-07.jpg" alt="김하선 작가" loading="lazy"></div><h4>김하선 작가</h4></div>
+      <div class="artist-card"><div class="artist-thumb"><img src="assets/artist-08.jpg" alt="도하윤 작가" loading="lazy"></div><h4>도하윤 작가</h4></div>
+      <div class="artist-card"><div class="artist-thumb"><img src="assets/artist-09.jpg" alt="명다솜 작가" loading="lazy"></div><h4>명다솜 작가</h4></div>
+      <div class="artist-card"><div class="artist-thumb"><img src="assets/artist-10.jpg" alt="윤주아 작가" loading="lazy"></div><h4>윤주아 작가</h4></div>
+      <div class="artist-card"><div class="artist-thumb"><img src="assets/artist-11.jpg" alt="이세아 작가" loading="lazy"></div><h4>이세아 작가</h4></div>
+      <div class="artist-card"><div class="artist-thumb"><img src="assets/artist-12.jpg" alt="이수민 작가" loading="lazy"></div><h4>이수민 작가</h4></div>
+      <div class="artist-card"><div class="artist-thumb"><img src="assets/artist-13.jpg" alt="이수아 작가" loading="lazy"></div><h4>이수아 작가</h4></div>
+      <div class="artist-card"><div class="artist-thumb"><img src="assets/artist-14.jpg" alt="이채영 작가" loading="lazy"></div><h4>이채영 작가</h4></div>
+      <div class="artist-card"><div class="artist-thumb"><img src="assets/artist-15.jpg" alt="조민혁 작가" loading="lazy"></div><h4>조민혁 작가</h4></div>
+      <div class="artist-card"><div class="artist-thumb"><img src="assets/artist-16.jpg" alt="조하윤 작가" loading="lazy"></div><h4>조하윤 작가</h4></div>
+    </div>
+    <div class="instructor-wrap">
+      <h3>함께한 지도강사</h3>
+      <div class="instructor-card">
+        <img src="assets/instructor-kim-seoyeon.jpg" alt="지도강사 김서연" loading="lazy">
+        <strong>김서연</strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. 전시장 소개 섹션 -->
+  <section id="location" class="fade-in">
+    <div class="section-tag">LOCATION</div>
+    <h2 class="section-title">전시장 소개</h2>
+    <div class="location-box">
+      <div class="location-img">
+        <img src="assets/venue.jpg" alt="유성구청소년수련관 전경" loading="lazy">
+      </div>
+      <div class="location-info">
+        <h3>유성구청소년수련관 1층 로비</h3>
+        <div class="info-group"><h4>전시 위치</h4><p>대전광역시 유성구 북유성대로 158 (1층 로비)</p></div>
+        <div class="info-group"><h4>주최 / 협력 기관</h4><p>온동네방과후돌봄센터 | 대전광역시교육청 | 대전YMCA | 유성구청소년수련관</p></div>
+        <div class="info-group"><h4>관람 시간</h4><p>화 ~ 토요일 : 09:00 - 20:30<br>일요일 : 09:00 - 17:30<br>월요일 · 공휴일 : 휴관</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. 전시 작품 보기 (16개) -->
+  <section id="gallery" class="fade-in">
+    <div class="section-tag">ARTWORKS</div>
+    <h2 class="section-title">전시 작품 보기 (16점)</h2>
+    <div class="works-grid" id="worksGrid"></div>
+  </section>
+
+  <!-- 6. 청소년 작가들에게 응원의 한마디 -->
+  <section id="guestbook" class="fade-in">
+    <div class="section-tag">GUESTBOOK</div>
+    <h2 class="section-title">청소년 작가들에게 응원의 한마디</h2>
+    <p class="guestbook-note">닉네임과 응원 메시지만 받습니다. 작성한 메시지는 온동네방과후돌봄센터에 전달됩니다.</p>
+
+    <form id="guestbookForm" class="guestbook-form" action="https://formspree.io/f/xvkpvydj" method="POST">
+      <input type="text" id="guestName" name="nickname" maxlength="20" autocomplete="nickname" placeholder="닉네임" required>
+      <textarea id="guestMsg" name="message" maxlength="150" placeholder="16명의 청소년 작가들에게 따뜻한 응원을 남겨주세요!" required></textarea>
+      <input type="hidden" name="_subject" value="The Way We See 전시 응원 메시지">
+      <button id="guestbookBtn" class="guestbook-btn" type="submit">응원 보내기</button>
+    </form>
+    <div id="guestbookStatus" class="guestbook-status" role="status" aria-live="polite"></div>
+  </section>
+
+  <!-- 푸터 -->
+  <footer>
+    <p><strong>온동네방과후돌봄센터 《The Way We See》 제1회 청소년 어반스케치 전시회</strong></p>
+    <p>대전광역시교육청 · 대전YMCA · 유성구청소년수련관 협력사업</p>
+    <p style="margin-top: 8px;">
+      <a href="https://happy-you.kr/" target="_blank">온동네방과후돌봄센터 공식 사이트 바로가기 ↗</a>
+    </p>
+    <p style="margin-top: 12px; color: #777; font-size: 0.72rem;">Copyright © 온동네방과후돌봄센터 All Rights Reserved.</p>
+  </footer>
+
+  <!-- 작품 상세 모달 -->
+  <div id="modal" class="modal" onclick="closeModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <span class="close-btn" onclick="closeModalDirect()">&times;</span>
+      
+      <div class="modal-media">
+        <img id="modalImg" src="" alt="작품">
+        <div class="audio-guide">
+          <div class="audio-guide-title">🎧 작가의 목소리</div>
+          <audio id="modalAudio" preload="metadata" style="display:none;">
+            <source id="audioSource" src="" type="audio/mpeg">
+          </audio>
+          <div class="voice-player">
+            <button id="voiceBtn" class="voice-btn" type="button" onclick="toggleVoice()">🎧 작가의 목소리 듣기</button>
+            <div id="voiceProgressWrap" class="voice-progress-wrap">
+              <span id="voiceCurrent">0:00</span>
+              <input id="voiceProgress" class="voice-progress" type="range" min="0" max="100" value="0" step="0.1" aria-label="음성 재생 위치">
+              <span id="voiceDuration">0:00</span>
+            </div>
+            <div id="audioPending" class="voice-pending">🎧 작가의 목소리 준비중</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-text">
+        <h3 id="modalTitle">작품 제목</h3>
+        <div class="meta" id="modalMeta">작가 정보</div>
+        <div id="modalDesc">작품 재료와 표현 기법</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 방문 통계는 Google Analytics 4(G-LX0JTEDE5R)로 관리자 화면에서 확인합니다. -->
+
+  <script>
+    const artworkData = [
+      { id: 1, title: "내가 바라본 여름날의 한옥", artist: "강민준 작가", img: "assets/artworks/artwork-01.jpg", audio: "assets/audio/voice-01.mp3", desc: "<div class=\"art-caption\"><div class=\"material\">종이에 연필 · 색연필</div><div class=\"technique\">표현 기법: 드로잉 · 채색</div></div>" },
+      { id: 2, title: "연우네 과일가게", artist: "고연우 작가", img: "assets/artworks/artwork-02.jpg", audio: "assets/audio/voice-02.mp3", desc: "<div class=\"art-caption\"><div class=\"material\">종이에 연필 · 색연필 · 수성 잉크 · 아크릴 잉크</div><div class=\"technique\">표현 기법: 드로잉 · 채색 · 잉크 워시</div></div>" },
+      { id: 3, title: "드림카페", artist: "김수아 작가", img: "assets/artworks/artwork-03.jpg", audio: "assets/audio/voice-03.mp3", desc: "<div class=\"art-caption\"><div class=\"material\">종이에 연필 · 색연필 · 수성 잉크</div><div class=\"technique\">표현 기법: 드로잉 · 채색 · 잉크 워시</div></div>" },
+      { id: 4, title: "철도길", artist: "김온유 작가", img: "assets/artworks/artwork-04.jpg", audio: "assets/audio/voice-04.mp3", desc: "<div class=\"art-caption\"><div class=\"material\">종이에 연필 · 색연필 · 수성 잉크</div><div class=\"technique\">표현 기법: 드로잉 · 채색 · 잉크 워시</div></div>" },
+      { id: 5, title: "넓은 바다와 작은 오두막", artist: "김요안나 작가", img: "assets/artworks/artwork-05.jpg", audio: "assets/audio/voice-05.mp3", desc: "<div class=\"art-caption\"><div class=\"material\">종이에 연필 · 색연필 · 수성 잉크</div><div class=\"technique\">표현 기법: 드로잉 · 채색 · 잉크 워시</div></div>" },
+      { id: 6, title: "놀이동산", artist: "김채원 작가", img: "assets/artworks/artwork-06.jpg", audio: "assets/audio/voice-06.mp3", desc: "<div class=\"art-caption\"><div class=\"material\">종이에 연필 · 색연필 · 수성 잉크</div><div class=\"technique\">표현 기법: 드로잉 · 채색 · 잉크 워시</div></div>" },
+      { id: 7, title: "너도 느꼈으면 좋겠어", artist: "김하선 작가", img: "assets/artworks/artwork-07.jpg", audio: "assets/audio/voice-07.mp3", desc: "<div class=\"art-caption\"><div class=\"material\">종이에 연필 · 색연필</div><div class=\"technique\">표현 기법: 드로잉 · 채색</div></div>" },
+      { id: 8, title: "Namsan Tower View", artist: "도하윤 작가", img: "assets/artworks/artwork-08.jpg", audio: "assets/audio/voice-08.mp3", desc: "<div class=\"art-caption\"><div class=\"material\">종이에 연필 · 색연필 · 수성 잉크</div><div class=\"technique\">표현 기법: 드로잉 · 채색 · 잉크 워시</div></div>" },
+      { id: 9, title: "여름풍경", artist: "명다솜 작가", img: "assets/artworks/artwork-09.jpg", audio: "assets/audio/voice-09.mp3", desc: "<div class=\"art-caption\"><div class=\"material\">종이에 연필 · 색연필 · 수성 잉크</div><div class=\"technique\">표현 기법: 드로잉 · 채색 · 잉크 워시</div></div>" },
+      { id: 10, title: "일본, 거리, 풍경", artist: "윤주아 작가", img: "assets/artworks/artwork-10.jpg", audio: "assets/audio/voice-10.mp3", desc: "<div class=\"art-caption\"><div class=\"material\">종이에 연필 · 색연필 · 수성 잉크</div><div class=\"technique\">표현 기법: 드로잉 · 채색 · 잉크 워시</div></div>" },
+      { id: 11, title: "일본 라멘가게", artist: "이세아 작가", img: "assets/artworks/artwork-11.jpg", audio: "assets/audio/voice-11.mp3", desc: "<div class=\"art-caption\"><div class=\"material\">종이에 연필 · 프러스펜 · 수성 잉크</div><div class=\"technique\">표현 기법: 드로잉 · 채색</div></div>" },
+      { id: 12, title: "노을이 비친 유에이 건물", artist: "이수민 작가", img: "assets/artworks/artwork-12.jpg", audio: "assets/audio/voice-12.mp3", desc: "<div class=\"art-caption\"><div class=\"material\">종이에 연필 · 색연필 · 수성 잉크</div><div class=\"technique\">표현 기법: 드로잉 · 채색 · 잉크 워시</div></div>" },
+      { id: 13, title: "해변에 있는 작은 건물", artist: "이수아 작가", img: "assets/artworks/artwork-13.jpg", audio: "assets/audio/voice-13.mp3", desc: "<div class=\"art-caption\"><div class=\"material\">종이에 연필 · 프러스펜 · 수성 잉크</div><div class=\"technique\">표현 기법: 드로잉 · 채색</div></div>" },
+      { id: 14, title: "빨간 다리의 노을", artist: "이채영 작가", img: "assets/artworks/artwork-14.jpg", audio: "assets/audio/voice-14.mp3", desc: "<div class=\"art-caption\"><div class=\"material\">종이에 연필 · 색연필 · 수성 잉크</div><div class=\"technique\">표현 기법: 드로잉 · 채색 · 잉크 워시</div></div>" },
+      { id: 15, title: "빛이 드는 복도", artist: "조민혁 작가", img: "assets/artworks/artwork-15.jpg", audio: "assets/audio/voice-15.mp3", desc: "<div class=\"art-caption\"><div class=\"material\">종이에 연필 · 색연필</div><div class=\"technique\">표현 기법: 드로잉 · 채색</div></div>" },
+      { id: 16, title: "아름답게 기억되길", artist: "조하윤 작가", img: "assets/artworks/artwork-16.jpg", audio: "assets/audio/voice-16.mp3", desc: "<div class=\"art-caption\"><div class=\"material\">종이에 연필 · 색연필 · 수성 잉크</div><div class=\"technique\">표현 기법: 드로잉 · 채색 · 잉크 워시</div></div>" }
+    ];
+
+    const worksGrid = document.getElementById('worksGrid');
+    artworkData.forEach(work => {
+      const card = document.createElement('div');
+      card.className = 'work-card';
+      card.onclick = () => openModal(work.img, work.audio, work.title, work.artist, work.desc);
+      card.innerHTML = `
+        <div class="work-img-wrapper">
+          ${work.img ? `<img src="${work.img}" alt="${work.title}" loading="lazy">` : '<div class="work-placeholder">작품 사진 준비중</div>'}
+          ${work.audio ? '<span class="audio-badge">🎧 음성</span>' : ''}
+        </div>
+        <h4>${work.title}</h4>
+        <div class="artist-name">${work.artist}</div>
+      `;
+      worksGrid.appendChild(card);
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('is-visible');
+      });
+    }, { threshold: 0.05 });
+
+    document.querySelectorAll('.fade-in').forEach(sec => observer.observe(sec));
+
+    const modal = document.getElementById('modal');
+    const modalAudio = document.getElementById('modalAudio');
+    const audioSource = document.getElementById('audioSource');
+    const audioPending = document.getElementById('audioPending');
+    const voiceBtn = document.getElementById('voiceBtn');
+    const voiceProgressWrap = document.getElementById('voiceProgressWrap');
+    const voiceProgress = document.getElementById('voiceProgress');
+    const voiceCurrent = document.getElementById('voiceCurrent');
+    const voiceDuration = document.getElementById('voiceDuration');
+
+    function openModal(img, audio, title, meta, desc) {
+      document.getElementById('modalImg').src = img;
+      if (audio) {
+        audioSource.src = audio;
+        audioPending.style.display = 'none';
+        voiceBtn.style.display = 'inline-flex';
+        voiceProgressWrap.style.display = 'grid';
+        voiceProgress.value = 0;
+        voiceCurrent.textContent = '0:00';
+        voiceDuration.textContent = '0:00';
+        voiceBtn.textContent = '🎧 작가의 목소리 듣기';
+        modalAudio.load();
+      } else {
+        audioSource.src = '';
+        modalAudio.pause();
+        voiceBtn.style.display = 'none';
+        voiceProgressWrap.style.display = 'none';
+        audioPending.style.display = 'block';
+      }
+      document.getElementById('modalTitle').innerText = title;
+      document.getElementById('modalMeta').innerText = meta;
+      document.getElementById('modalDesc').innerHTML = desc;
+      
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+
+    function formatTime(seconds) {
+      if (!Number.isFinite(seconds)) return '0:00';
+      const min = Math.floor(seconds / 60);
+      const sec = Math.floor(seconds % 60).toString().padStart(2, '0');
+      return `${min}:${sec}`;
+    }
+
+    function toggleVoice() {
+      if (!audioSource.src) return;
+      if (modalAudio.paused) {
+        // 페이지 내 다른 오디오가 추가되더라도 동시에 재생되지 않도록 모두 정지
+        document.querySelectorAll('audio').forEach(a => { if (a !== modalAudio) a.pause(); });
+        modalAudio.play();
+      } else {
+        modalAudio.pause();
+      }
+    }
+
+    modalAudio.addEventListener('play', () => {
+      voiceBtn.textContent = '❚❚ 작가의 목소리 일시정지';
+    });
+    modalAudio.addEventListener('pause', () => {
+      if (modalAudio.currentTime < modalAudio.duration || !Number.isFinite(modalAudio.duration)) {
+        voiceBtn.textContent = '🎧 작가의 목소리 듣기';
+      }
+    });
+    modalAudio.addEventListener('loadedmetadata', () => {
+      voiceDuration.textContent = formatTime(modalAudio.duration);
+    });
+    modalAudio.addEventListener('timeupdate', () => {
+      voiceCurrent.textContent = formatTime(modalAudio.currentTime);
+      if (Number.isFinite(modalAudio.duration) && modalAudio.duration > 0) {
+        voiceProgress.value = (modalAudio.currentTime / modalAudio.duration) * 100;
+      }
+    });
+    modalAudio.addEventListener('ended', () => {
+      voiceBtn.textContent = '↻ 작가의 목소리 다시 듣기';
+      voiceProgress.value = 0;
+      voiceCurrent.textContent = '0:00';
+    });
+    voiceProgress.addEventListener('input', () => {
+      if (Number.isFinite(modalAudio.duration) && modalAudio.duration > 0) {
+        modalAudio.currentTime = (Number(voiceProgress.value) / 100) * modalAudio.duration;
+      }
+    });
+
+    function closeModalDirect() {
+      modal.classList.remove('active');
+      modalAudio.pause();
+      modalAudio.currentTime = 0;
+      voiceProgress.value = 0;
+      voiceCurrent.textContent = '0:00';
+      voiceBtn.textContent = '🎧 작가의 목소리 듣기';
+      document.body.style.overflow = 'auto';
+    }
+
+    function closeModal(e) {
+      if (e.target === modal) closeModalDirect();
+    }
+
+    const guestbookForm = document.getElementById('guestbookForm');
+    const guestbookBtn = document.getElementById('guestbookBtn');
+    const guestbookStatus = document.getElementById('guestbookStatus');
+
+    guestbookForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      guestbookStatus.className = 'guestbook-status';
+      guestbookStatus.textContent = '';
+      guestbookBtn.disabled = true;
+      guestbookBtn.textContent = '전송 중...';
+
+      try {
+        const response = await fetch(guestbookForm.action, {
+          method: 'POST',
+          body: new FormData(guestbookForm),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (!response.ok) throw new Error('Formspree submission failed');
+
+        guestbookForm.reset();
+        guestbookStatus.className = 'guestbook-status success';
+        guestbookStatus.textContent = '응원 메시지가 전달되었습니다 💌';
+      } catch (error) {
+        guestbookStatus.className = 'guestbook-status error';
+        guestbookStatus.textContent = '메시지 전송에 실패했습니다. 잠시 후 다시 시도해 주세요.';
+      } finally {
+        guestbookBtn.disabled = false;
+        guestbookBtn.textContent = '응원 보내기';
+      }
+    });
+  </script>
 </body>
 </html>
